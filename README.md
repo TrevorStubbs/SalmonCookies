@@ -22,9 +22,9 @@
 
 ## Sales Data:
 create separate JS object literals for each shop location:
-1. Stores the min/max hourly customers, and average cookies per customer, in object properties
-1. Uses a method of that object to generate a random number of customers per hour.
-1. Calc and store the simulated amounts of cookies purchased for each hour at each locations using average cookies purchased and the random number of customers generated.
+1. Stores the min/max hourly customers, and average cookies per customer, in object properties--
+1. Uses a method of that object to generate a random number of customers per hour.--
+1. Calc and store the simulated amounts of cookies purchased for each hour at each locations using average cookies purchased and the random number of customers generated.-
 1. Store the results for each location in a separate array (object property).
 1. Display the values of each array as `<ul>` in browser
 1. Calc the sum of these hourly totals.
