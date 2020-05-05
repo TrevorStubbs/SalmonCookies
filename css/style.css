@@ -1,4 +1,36 @@
-*{
-  background-color: salmon;
-  color: red;
+body{
+  background-color: rgb(250, 231, 231);
+  color: rgb(39, 20, 70);
+  /* serif */
+  font-family: 'Volkhov', serif;
 }
+
+section{
+  margin-top: 10px;
+  z-index: 2;
+}
+
+ul{
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+#logo{
+  position: absolute;
+  margin-left: 30%;
+  z-index: 1;
+}
+
+.highlight{
+  /* Google Font */
+  font-family: 'Alfa Slab One', cursive;
+  color: rgb(173, 76, 76);
+  letter-spacing: .1em;
+}
+
+.data{
+  /* sans-serif */
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(19, 54, 6);
+}
+

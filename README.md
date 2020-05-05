@@ -22,28 +22,27 @@
 
 ## Sales Data:
 create separate JS object literals for each shop location:
-1. Stores the min/max hourly customers, and average cookies per customer, in object properties
-1. Uses a method of that object to generate a random number of customers per hour.
-1. Calc and stor the simulated amounts of cookies purchased for each hour at each locations using average cookies purchased and the random number of customers generated.
+1. Stores the min/max hourly customers, and average cookies per customer, in object properties--
+1. Uses a method of that object to generate a random number of customers per hour.--
+1. Calc and store the simulated amounts of cookies purchased for each hour at each locations using average cookies purchased and the random number of customers generated.-
 1. Store the results for each location in a separate array (object property).
 1. Display the values of each array as `<ul>` in browser
-1. Calc the sum of these hourly totals.
+1. Calc the sum of these hourly totals.--
 
-Display the lists on sales.html.
+Display the lists on sales.html.--
 
 ## Home Page:
 **Stretch Goals for day 6**
-
 - In addition to the provided pic of the fish, index.html should contain:
-1. A custom **Google** font for **highlights**
-1. A specified standard **sans-serif** web font for **Data**
-1. A specified **serif** web font for **text**
+1. A custom **Google** font for **highlights**--
+1. A specified standard **sans-serif** web font for **Data**--
+1. A specified **serif** web font for **text**--
 1. Specified different font colors for all three font usages
-1. A background color for the default page background (make sure font colors have good contrast and are readable on the background).
+1. A background color for the default page background (make sure font colors have good contrast and are readable on the background).-
 1. A different background color for elements such as boxes and tables (check contrast)
 1. Anything else you'd like to add related to style. But remember: simplicity, clarity, and consistency.
 1. Be thoughtful about layout and overall organization of the page
-1. Include all of the typical stuff that you'll find on the home page of a buisness: locations, hours, contact info, some text about the business. be creative.
+1. Include all of the typical stuff that you'll find on the home page of a business: locations, hours, contact info, some text about the business. be creative.
 
 ## Developer Style Guide:
 1. For every lab within this project, you will be creating a new branch for every day. In this format `class##-feature`. (ie `class06-objects)
