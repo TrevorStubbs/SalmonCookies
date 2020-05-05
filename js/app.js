@@ -58,7 +58,7 @@ CookieStoreLocation.prototype.averageCookiesPurchasedPerHour = function(){
 CookieStoreLocation.prototype.renderLi = function(){
   this.customersEachHour();
   this.averageCookiesPurchasedPerHour();
-  let parentElement = document.getElementById('seattle');
+  let parentElement = document.getElementById(this.name.toLowerCase());
   let listItem;
   parentElement.innerText = this.name;
 
@@ -81,7 +81,18 @@ CookieStoreLocation.prototype.renderLi = function(){
 
 
 let seattleLocation = new CookieStoreLocation('Seattle', 23, 65, 6.3);
+let tokyoLocation = new CookieStoreLocation('Tokyo', 3, 24, 1.2);
+let dubaiLocation = new CookieStoreLocation('Dubai', 11, 38, 3.7);
+let parisLocation = new CookieStoreLocation('Paris', 20, 38, 2.3);
+let limaLocation = new CookieStoreLocation('Lima', 2, 16, 4.6);
+
 seattleLocation.renderLi();
+tokyoLocation.renderLi();
+dubaiLocation.renderLi();
+parisLocation.renderLi();
+limaLocation.renderLi();
+
+
 console.log(seattleLocation.hoursArray);
 console.log(seattleLocation.cookieArray);
 console.log(seattleLocation.customerArray);
