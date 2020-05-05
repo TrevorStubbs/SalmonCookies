@@ -27,9 +27,9 @@ create separate JS object literals for each shop location:
 1. Calc and store the simulated amounts of cookies purchased for each hour at each locations using average cookies purchased and the random number of customers generated.-
 1. Store the results for each location in a separate array (object property).
 1. Display the values of each array as `<ul>` in browser
-1. Calc the sum of these hourly totals.
+1. Calc the sum of these hourly totals.--
 
-Display the lists on sales.html.
+Display the lists on sales.html.--
 
 ## Home Page:
 **Stretch Goals for day 6**

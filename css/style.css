@@ -1,4 +1,25 @@
 *{
-  background-color: salmon;
+  background-color: white;
   color: blue;
 }
+
+section{
+  margin-top: 10px;
+  z-index: 2;
+}
+
+#logo{
+  position: absolute;
+  margin-left: 30%;
+  z-index: 1;
+}
+
+.highlight{
+  /* custom google font */
+}
+
+.data{
+  /* sans-seif */
+}
+
+.
