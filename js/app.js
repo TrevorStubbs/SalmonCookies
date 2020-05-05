@@ -2,8 +2,6 @@
 
 //random number test
 function getRandomNumber(min, max){
-  min = Math.ceil(min);
-  max = Math.floor(max);
   return Math.floor(Math.random() * (max - (min +1))) + min;
 }
 
@@ -15,10 +13,10 @@ function hoursArrayGenerator(open, close){
   for(let i = 0; i < totalHoursOpen; i++){
     let hour = i + open;
     if (hour < 12){
-      outputArray.push(`${hour}am`);
+      outputArray.push(`${hour}:00am`);
     } else {
       hour -= 12;
-      outputArray.push(`${hour}pm`);
+      outputArray.push(`${hour}:00pm`);
     }
   }
   return outputArray;
@@ -57,7 +55,8 @@ var seattleLocation = {
   renderLi: function(){
     this.customersEachHour();
     this.averageCookiesPurchasedPerHour();
-    var parentElement = document.getElementById('seattle');
+    let parentElement = document.getElementById('seattle');
+    let listItem;
     parentElement.innerText = this.name;
 
     for(let i = 0; i < this.hoursArray.length; i++){
@@ -69,11 +68,10 @@ var seattleLocation = {
         amOrPm = 'pm';
       }
 
-      var listItem = document.createElement('li');
+      listItem = document.createElement('li');
       listItem.textContent = `${open}${amOrPm}: ${this.cookieArray[i]} cookies`;
       parentElement.appendChild(listItem);
     }
-    parentElement.appendChild(document.createElement('br'));
     listItem.textContent = `Total: ${this.totalCookiesPerDay} cookies`;
     parentElement.appendChild(listItem);
   },
