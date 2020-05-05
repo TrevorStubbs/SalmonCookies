@@ -1,6 +1,9 @@
 'use strict';
 
 var everyLocation = [];
+// WARNING: this is not connected to the hourArrayGenerator. If the hours change I need to change this.
+let hourlyCorrectionScale = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
+let openHours = hoursArrayGenerator(6,8);
 
 //Generate the hours array
 function hoursArrayGenerator(open, close){
@@ -19,7 +22,6 @@ function hoursArrayGenerator(open, close){
   return outputArray;
 }
 
-let openHours = hoursArrayGenerator(6,8);
 
 // Define the CookieStoreLocation
 function CookieStoreLocation(name, minCustomersPerHour, maxCustomersPerHour, averageCookiesPurchasedPerCustomer){
@@ -39,10 +41,11 @@ CookieStoreLocation.prototype.getRandomNumber = function(min, max){
   return Math.floor(Math.random() * (max - (min +1))) + min;
 };
 
-// Generate customers per hour
+// Generate customers per hour corrected for actual numbers
 CookieStoreLocation.prototype.customersEachHour = function(){
   for(let i = 0; i < this.hoursArray.length; i++){
-    this.customerArray.push(this.getRandomNumber(this.minCustomersPerHour, this.maxCustomersPerHour));
+    let correction = hourlyCorrectionScale[i] * this.getRandomNumber(this.minCustomersPerHour, this.maxCustomersPerHour);
+    this.customerArray.push(correction);
   }
 };
 
@@ -75,7 +78,7 @@ CookieStoreLocation.prototype.renderTableData = function() {
 
 //Render Table Head
 function renderTableHead(){
-  let parentElement = document.getElementById('table-head');
+  let parentElement = document.getElementById('cookie-table-head');
   let tableHead = document.createElement('th');
   tableHead.textContent = '';
   parentElement.appendChild(tableHead);
@@ -88,7 +91,7 @@ function renderTableHead(){
   tableHead.textContent = 'Daily Location Total';
   parentElement.appendChild(tableHead);
 }
-renderTableHead();
+
 
 // Hourly total
 function sumHourly(){
@@ -111,7 +114,7 @@ function sumHourly(){
 
 // Render Totals
 function renderTotals(){
-  let parentElement = document.getElementById('table-foot');
+  let parentElement = document.getElementById('cookie-table-foot');
   let tableFoot = document.createElement('td');
   tableFoot.textContent = 'Totals ';
   parentElement.appendChild(tableFoot);
@@ -122,20 +125,23 @@ function renderTotals(){
   }
 }
 
-
+// Instantiating the classes
 let seattleLocation = new CookieStoreLocation('Seattle', 23, 65, 6.3);
 let tokyoLocation = new CookieStoreLocation('Tokyo', 3, 24, 1.2);
 let dubaiLocation = new CookieStoreLocation('Dubai', 11, 38, 3.7);
 let parisLocation = new CookieStoreLocation('Paris', 20, 38, 2.3);
 let limaLocation = new CookieStoreLocation('Lima', 2, 16, 4.6);
 
+// Render All the table rows
+renderTableHead();
 seattleLocation.renderTableData();
 tokyoLocation.renderTableData();
 dubaiLocation.renderTableData();
 parisLocation.renderTableData();
 limaLocation.renderTableData();
+
+// Have to call sumHourly after the classes have been rendered
 let hourlyTotals = sumHourly();
 renderTotals();
 
 
-// console.log();
