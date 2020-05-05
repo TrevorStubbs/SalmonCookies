@@ -1,6 +1,6 @@
 'use strict';
-console.log('hi');
 
+var everyLocation = [];
 
 //Generate the hours array
 function hoursArrayGenerator(open, close){
@@ -31,6 +31,7 @@ function CookieStoreLocation(name, minCustomersPerHour, maxCustomersPerHour, ave
   this.customerArray = [];
   this.cookieArray = [];
   this.totalCookiesPerDay = 0;
+  everyLocation.push(this);
 }
 
 //random number getter
@@ -59,15 +60,15 @@ CookieStoreLocation.prototype.renderTableData = function() {
   this.customersEachHour();
   this.averageCookiesPurchasedPerHour();
   let parentElement = document.getElementById(this.name.toLowerCase());
-  let tableHead = document.createElement('th');
+  let tableHead = document.createElement('td');
   tableHead.textContent = this.name;
   parentElement.appendChild(tableHead);
   for(let i = 0; i < this.cookieArray.length; i++){
-    tableHead = document.createElement('th');
+    tableHead = document.createElement('td');
     tableHead.textContent = this.cookieArray[i];
     parentElement.appendChild(tableHead);
   }
-  tableHead = document.createElement('th');
+  tableHead = document.createElement('td');
   tableHead.textContent = this.totalCookiesPerDay;
   parentElement.appendChild(tableHead);
 }
@@ -89,6 +90,38 @@ function renderTableHead(){
 }
 renderTableHead();
 
+// Hourly total
+function sumHourly(){
+  let outputArray = [];
+  for(let j = 0; j < openHours.length; j++){
+    let sum = 0;
+    for(let i = 0; i < everyLocation.length; i++){
+      sum += everyLocation[i].cookieArray[j];
+    }
+    outputArray.push(sum);
+  }
+  let sumTotal = 0;
+  for(let i = 0; i < outputArray.length; i++){
+    sumTotal += outputArray[i];
+  }
+  outputArray.push(sumTotal);
+  return outputArray;
+}
+
+
+// Render Totals
+function renderTotals(){
+  let parentElement = document.getElementById('table-foot');
+  let tableFoot = document.createElement('td');
+  tableFoot.textContent = 'Totals ';
+  parentElement.appendChild(tableFoot);
+  for(let i = 0; i < hourlyTotals.length; i++){
+    tableFoot = document.createElement('td');
+    tableFoot.textContent = hourlyTotals[i];
+    parentElement.appendChild(tableFoot);
+  }
+}
+
 
 let seattleLocation = new CookieStoreLocation('Seattle', 23, 65, 6.3);
 let tokyoLocation = new CookieStoreLocation('Tokyo', 3, 24, 1.2);
@@ -101,5 +134,8 @@ tokyoLocation.renderTableData();
 dubaiLocation.renderTableData();
 parisLocation.renderTableData();
 limaLocation.renderTableData();
+let hourlyTotals = sumHourly();
+renderTotals();
 
 
+// console.log();

@@ -62,8 +62,8 @@ Display the lists on sales.html.--
 # Day 2
 1. Create a new branch for today's lab class07-constructor-
 1. Replace all of th the object literals with a single constructor function. Create instances of the object for each location-
-1. replace the lists of your data for each stor anb build a single table of data instead.
-1. each location should have a separate render() method.
+1. replace the lists of your data for each stor anb build a single table of data instead.-
+1. each location should have a separate render() method.-
 1. the header and footer should be their own standalone function
 
 - Stretch Goals
