@@ -1,5 +1,5 @@
 'use strict';
-
+console.log('hi');
 
 
 //Generate the hours array
@@ -54,44 +54,21 @@ CookieStoreLocation.prototype.averageCookiesPurchasedPerHour = function(){
   }
 };
 
-// Render the list items and include the total
-CookieStoreLocation.prototype.renderLi = function(){
+//Render Table Body Data
+CookieStoreLocation.prototype.renderTableData = function() {
   this.customersEachHour();
   this.averageCookiesPurchasedPerHour();
   let parentElement = document.getElementById(this.name.toLowerCase());
-  let listItem;
-  parentElement.innerText = this.name;
-
-  for(let i = 0; i < this.hoursArray.length; i++){
-    let amOrPm = 'am';
-    let open = (i + 6);
-
-    if(open > 12){
-      open = open - 12;
-      amOrPm = 'pm';
-    }
-
-    listItem = document.createElement('li');
-    listItem.textContent = `${open}${amOrPm}: ${this.cookieArray[i]} cookies`;
-    parentElement.appendChild(listItem);
-  }
-  listItem.textContent = `Total: ${this.totalCookiesPerDay} cookies`;
-  parentElement.appendChild(listItem);
-};
-
-//Render Table Body Data
-CookieStoreLocation.prototype.renderTableData = function {
-  let parentElement = document.getElementById('table-head');
   let tableHead = document.createElement('th');
-  tableHead.textContent = '';
+  tableHead.textContent = this.name;
   parentElement.appendChild(tableHead);
-  for(let i = 0; i < openHours.length; i++){
+  for(let i = 0; i < this.cookieArray.length; i++){
     tableHead = document.createElement('th');
-    tableHead.textContent = openHours[i];
+    tableHead.textContent = this.cookieArray[i];
     parentElement.appendChild(tableHead);
   }
   tableHead = document.createElement('th');
-  tableHead.textContent = 'Daily Location Total';
+  tableHead.textContent = this.totalCookiesPerDay;
   parentElement.appendChild(tableHead);
 }
 
@@ -110,6 +87,7 @@ function renderTableHead(){
   tableHead.textContent = 'Daily Location Total';
   parentElement.appendChild(tableHead);
 }
+renderTableHead();
 
 
 let seattleLocation = new CookieStoreLocation('Seattle', 23, 65, 6.3);
@@ -118,11 +96,10 @@ let dubaiLocation = new CookieStoreLocation('Dubai', 11, 38, 3.7);
 let parisLocation = new CookieStoreLocation('Paris', 20, 38, 2.3);
 let limaLocation = new CookieStoreLocation('Lima', 2, 16, 4.6);
 
-seattleLocation.renderLi();
-renderTableHead();
-tokyoLocation.renderLi();
-dubaiLocation.renderLi();
-parisLocation.renderLi();
-limaLocation.renderLi();
+seattleLocation.renderTableData();
+tokyoLocation.renderTableData();
+dubaiLocation.renderTableData();
+parisLocation.renderTableData();
+limaLocation.renderTableData();
 
 
