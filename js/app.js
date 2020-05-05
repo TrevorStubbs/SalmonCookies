@@ -49,6 +49,7 @@ var seattleLocation = {
     parentElement = document.getElementById('seattle');
     listItem = document.createElement('li');
     listItem.textContent = `Total: ${total} cookies`;
+    parentElement.appendChild(document.createElement('br'));
     parentElement.appendChild(listItem);
   },
 };
@@ -98,6 +99,7 @@ var tokyoLocation = {
     parentElement = document.getElementById('tokyo');
     listItem = document.createElement('li');
     listItem.textContent = `Total: ${total}`;
+    parentElement.appendChild(document.createElement('br'));
     parentElement.appendChild(listItem);
   },
 };
@@ -144,6 +146,7 @@ var dubaiLocation = {
     parentElement = document.getElementById('dubai');
     listItem = document.createElement('li');
     listItem.textContent = `Total: ${total}`;
+    parentElement.appendChild(document.createElement('br'));
     parentElement.appendChild(listItem);
   },
 };
@@ -190,6 +193,7 @@ var parisLocation = {
     parentElement = document.getElementById('paris');
     listItem = document.createElement('li');
     listItem.textContent = `Total: ${total}`;
+    parentElement.appendChild(document.createElement('br'));
     parentElement.appendChild(listItem);
   },
 };
@@ -236,29 +240,25 @@ var limaLocation = {
     parentElement = document.getElementById('lima');
     listItem = document.createElement('li');
     listItem.textContent = `Total: ${total}`;
+    parentElement.appendChild(document.createElement('br'));
     parentElement.appendChild(listItem);
   },
 };
 
+// generate the arrays and renders the lists
+function locationBuilder(location){
+  location.customersEachHour();
+  location.averageCookiesPurchasedPerHour();
+  location.renderLi();
+}
 
-//Seattle: generate the arrays and the lists
-seattleLocation.customersEachHour();
-seattleLocation.averageCookiesPurchasedPerHour();
-seattleLocation.renderLi();
-
-//Tokyo: generate the arrays and the lists
-tokyoLocation.customersEachHour();
-tokyoLocation.averageCookiesPurchasedPerHour();
-tokyoLocation.renderLi();
-//Dubai: generate the arrays and the lists
-dubaiLocation.customersEachHour();
-dubaiLocation.averageCookiesPurchasedPerHour();
-dubaiLocation.renderLi();
-//Paris: generate the arrays and the lists
-parisLocation.customersEachHour();
-parisLocation.averageCookiesPurchasedPerHour();
-parisLocation.renderLi();
-//Lima: generate the arrays and the lists
-limaLocation.customersEachHour();
-limaLocation.averageCookiesPurchasedPerHour();
-limaLocation.renderLi();
+//Seattle:
+locationBuilder(seattleLocation);
+//Tokyo:
+locationBuilder(tokyoLocation);
+//Dubai:
+locationBuilder(dubaiLocation);
+//Paris:
+locationBuilder(parisLocation);
+//Lima:
+locationBuilder(limaLocation);
