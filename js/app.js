@@ -4,6 +4,7 @@
 var everyLocation = [];
 // WARNING: this is not connected to the hourArrayGenerator. If the hours change I need to change this.
 let hourlyCorrectionScale = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
+// Generate the open hours
 let openHours = hoursArrayGenerator(6,8);
 
 //Generate the hours array
@@ -89,13 +90,6 @@ CookieStoreLocation.prototype.employeeCalculator = function(){
       this.employeeArray.push(totalPerHour);
     }
   }
-  // Calculate total
-  // let sumTotal = 0;
-  // for(let i = 0; i < this.employeeArray.length; i++){
-  //   sumTotal += this.employeeArray[i];
-  // }
-  // this.employeeArray.push(sumTotal);
-  console.log(this.employeeArray);
 };
 
 //Render Employee Numbers
@@ -115,21 +109,24 @@ CookieStoreLocation.prototype.renderEmployeeTableData = function(){
 //Render Table Head
 function renderTableHead(tagId){
   let parentElement = document.getElementById(tagId);
+  let parentRow = document.createElement('tr'); //this test
   let tableHead = document.createElement('th');
   tableHead.textContent = '';
-  parentElement.appendChild(tableHead);
+  parentRow.appendChild(tableHead);
   for(let i = 0; i < openHours.length; i++){
     tableHead = document.createElement('th');
     tableHead.textContent = openHours[i];
-    parentElement.appendChild(tableHead);
+    parentRow.appendChild(tableHead);
   }
   if(tagId === 'employee-table-head'){
+    parentElement.appendChild(parentRow);
     return;
   }else{
     tableHead = document.createElement('th');
     tableHead.textContent = 'Daily Location Total';
-    parentElement.appendChild(tableHead);
+    parentRow.appendChild(tableHead);
   }
+  parentElement.appendChild(parentRow);
 }
 
 // Hourly total - tied to location constructor
@@ -162,7 +159,6 @@ function renderTotals(){
     parentElement.appendChild(tableFoot);
   }
 }
-
 
 // Build out Employee Table
 // Hourly total
