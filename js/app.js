@@ -1,5 +1,6 @@
 'use strict';
 
+// Collect all the data so I can use it later.
 var everyLocation = [];
 // WARNING: this is not connected to the hourArrayGenerator. If the hours change I need to change this.
 let hourlyCorrectionScale = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
@@ -12,7 +13,7 @@ function hoursArrayGenerator(open, close){
   let totalHoursOpen = close-open;
   for(let i = 0; i < totalHoursOpen; i++){
     let hour = i + open;
-    if (hour < 12){
+    if (hour < 13){
       outputArray.push(`${hour}:00am`);
     } else {
       hour -= 12;
@@ -22,8 +23,7 @@ function hoursArrayGenerator(open, close){
   return outputArray;
 }
 
-
-// Define the CookieStoreLocation
+// Define the CookieStoreLocation Constructor
 function CookieStoreLocation(name, minCustomersPerHour, maxCustomersPerHour, averageCookiesPurchasedPerCustomer){
   this.name = name;
   this.minCustomersPerHour = minCustomersPerHour;
@@ -37,7 +37,7 @@ function CookieStoreLocation(name, minCustomersPerHour, maxCustomersPerHour, ave
   everyLocation.push(this);
 }
 
-//random number getter
+//Random Number Generator
 CookieStoreLocation.prototype.getRandomNumber = function(min, max){
   return Math.floor(Math.random() * (max - (min +1))) + min;
 };
@@ -46,7 +46,7 @@ CookieStoreLocation.prototype.getRandomNumber = function(min, max){
 CookieStoreLocation.prototype.customersEachHour = function(){
   for(let i = 0; i < this.hoursArray.length; i++){
     let correction = hourlyCorrectionScale[i] * this.getRandomNumber(this.minCustomersPerHour, this.maxCustomersPerHour);
-    this.customerArray.push(correction);
+    this.customerArray.push(Math.ceil(correction));
   }
 };
 
@@ -82,7 +82,7 @@ CookieStoreLocation.prototype.employeeCalculator = function(){
   // Calculate Each Hour
   for(let i = 0; i < this.customerArray.length; i++){
     let totalPerHour = Math.ceil(this.customerArray[i] / 20);
-    if(totalPerHour < 2){
+    if(totalPerHour <= 2){
       totalPerHour = 2;
       this.employeeArray.push(totalPerHour);
     } else{
@@ -90,11 +90,12 @@ CookieStoreLocation.prototype.employeeCalculator = function(){
     }
   }
   // Calculate total
-  let sumTotal = 0;
-  for(let i = 0; i < this.employeeArray.length; i++){
-    sumTotal += this.employeeArray[i];
-  }
-  this.employeeArray.push(sumTotal);
+  // let sumTotal = 0;
+  // for(let i = 0; i < this.employeeArray.length; i++){
+  //   sumTotal += this.employeeArray[i];
+  // }
+  // this.employeeArray.push(sumTotal);
+  console.log(this.employeeArray);
 };
 
 //Render Employee Numbers
@@ -104,7 +105,7 @@ CookieStoreLocation.prototype.renderEmployeeTableData = function(){
   let tableHead = document.createElement('td');
   tableHead.textContent = this.name;
   parentElement.appendChild(tableHead);
-  for(let i = 0; i < this.employeeArray.length-1; i++){
+  for(let i = 0; i < this.employeeArray.length; i++){
     tableHead = document.createElement('td');
     tableHead.textContent = this.employeeArray[i];
     parentElement.appendChild(tableHead);
@@ -210,14 +211,12 @@ limaLocation.renderSalesTableData();
 let hourlyTotals = sumSalesHourly();
 renderTotals();
 
-renderTableHead('employee-table-head');
 seattleLocation.renderEmployeeTableData();
 tokyoLocation.renderEmployeeTableData();
 dubaiLocation.renderEmployeeTableData();
 parisLocation.renderEmployeeTableData();
 limaLocation.renderEmployeeTableData();
 
+renderTableHead('employee-table-head');
 let hourlyEmployeeTotals = sumEmployeeHourly();
 renderEmployeeTotals();
-
-console.log(hourlyEmployeeTotals);
