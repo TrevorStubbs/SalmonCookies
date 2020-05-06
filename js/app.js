@@ -32,6 +32,7 @@ function CookieStoreLocation(name, minCustomersPerHour, maxCustomersPerHour, ave
   this.hoursArray = openHours;
   this.customerArray = [];
   this.cookieArray = [];
+  this.employeeArray = [];
   this.totalCookiesPerDay = 0;
   everyLocation.push(this);
 }
@@ -59,7 +60,7 @@ CookieStoreLocation.prototype.averageCookiesPurchasedPerHour = function(){
 };
 
 //Render Table Body Data
-CookieStoreLocation.prototype.renderTableData = function() {
+CookieStoreLocation.prototype.renderSalesTableData = function() {
   this.customersEachHour();
   this.averageCookiesPurchasedPerHour();
   let parentElement = document.getElementById(this.name.toLowerCase());
@@ -74,11 +75,45 @@ CookieStoreLocation.prototype.renderTableData = function() {
   tableHead = document.createElement('td');
   tableHead.textContent = this.totalCookiesPerDay;
   parentElement.appendChild(tableHead);
-}
+};
+
+// Calculate how many Employees we need per hour
+CookieStoreLocation.prototype.employeeCalculator = function(){
+  // Calculate Each Hour
+  for(let i = 0; i < this.customerArray.length; i++){
+    let totalPerHour = Math.ceil(this.customerArray[i] / 20);
+    if(totalPerHour < 2){
+      totalPerHour = 2;
+      this.employeeArray.push(totalPerHour);
+    } else{
+      this.employeeArray.push(totalPerHour);
+    }
+  }
+  // Calculate total
+  let sumTotal = 0;
+  for(let i = 0; i < this.employeeArray.length; i++){
+    sumTotal += this.employeeArray[i];
+  }
+  this.employeeArray.push(sumTotal);
+};
+
+//Render Employee Numbers
+CookieStoreLocation.prototype.renderEmployeeTableData = function(){
+  this.employeeCalculator();
+  let parentElement = document.getElementById(`${this.name.toLowerCase()}-employee`);
+  let tableHead = document.createElement('td');
+  tableHead.textContent = this.name;
+  parentElement.appendChild(tableHead);
+  for(let i = 0; i < this.employeeArray.length-1; i++){
+    tableHead = document.createElement('td');
+    tableHead.textContent = this.employeeArray[i];
+    parentElement.appendChild(tableHead);
+  }
+};
 
 //Render Table Head
-function renderTableHead(){
-  let parentElement = document.getElementById('cookie-table-head');
+function renderTableHead(tagId){
+  let parentElement = document.getElementById(tagId);
   let tableHead = document.createElement('th');
   tableHead.textContent = '';
   parentElement.appendChild(tableHead);
@@ -87,14 +122,17 @@ function renderTableHead(){
     tableHead.textContent = openHours[i];
     parentElement.appendChild(tableHead);
   }
-  tableHead = document.createElement('th');
-  tableHead.textContent = 'Daily Location Total';
-  parentElement.appendChild(tableHead);
+  if(tagId === 'employee-table-head'){
+    return;
+  }else{
+    tableHead = document.createElement('th');
+    tableHead.textContent = 'Daily Location Total';
+    parentElement.appendChild(tableHead);
+  }
 }
 
-
-// Hourly total
-function sumHourly(){
+// Hourly total - tied to location constructor
+function sumSalesHourly(){
   let outputArray = [];
   for(let j = 0; j < openHours.length; j++){
     let sum = 0;
@@ -111,7 +149,6 @@ function sumHourly(){
   return outputArray;
 }
 
-
 // Render Totals
 function renderTotals(){
   let parentElement = document.getElementById('cookie-table-foot');
@@ -125,6 +162,34 @@ function renderTotals(){
   }
 }
 
+
+// Build out Employee Table
+// Hourly total
+function sumEmployeeHourly(){
+  let outputArray = [];
+  for(let j = 0; j < openHours.length; j++){
+    let sum = 0;
+    for(let i = 0; i < everyLocation.length; i++){
+      sum += everyLocation[i].employeeArray[j];
+    }
+    outputArray.push(sum);
+  }
+  return outputArray;
+}
+
+// Render Employee Totals
+function renderEmployeeTotals(){
+  let parentElement = document.getElementById('employee-table-foot');
+  let tableFoot = document.createElement('td');
+  tableFoot.textContent = 'Totals ';
+  parentElement.appendChild(tableFoot);
+  for(let i = 0; i < hourlyTotals.length; i++){
+    tableFoot = document.createElement('td');
+    tableFoot.textContent = hourlyEmployeeTotals[i];
+    parentElement.appendChild(tableFoot);
+  }
+}
+
 // Instantiating the classes
 let seattleLocation = new CookieStoreLocation('Seattle', 23, 65, 6.3);
 let tokyoLocation = new CookieStoreLocation('Tokyo', 3, 24, 1.2);
@@ -133,15 +198,26 @@ let parisLocation = new CookieStoreLocation('Paris', 20, 38, 2.3);
 let limaLocation = new CookieStoreLocation('Lima', 2, 16, 4.6);
 
 // Render All the table rows
-renderTableHead();
-seattleLocation.renderTableData();
-tokyoLocation.renderTableData();
-dubaiLocation.renderTableData();
-parisLocation.renderTableData();
-limaLocation.renderTableData();
+renderTableHead('cookie-table-head');
+seattleLocation.renderSalesTableData();
+tokyoLocation.renderSalesTableData();
+dubaiLocation.renderSalesTableData();
+parisLocation.renderSalesTableData();
+limaLocation.renderSalesTableData();
 
-// Have to call sumHourly after the classes have been rendered
-let hourlyTotals = sumHourly();
+
+// Have to call sumSalesHourly after the classes have been rendered
+let hourlyTotals = sumSalesHourly();
 renderTotals();
 
+renderTableHead('employee-table-head');
+seattleLocation.renderEmployeeTableData();
+tokyoLocation.renderEmployeeTableData();
+dubaiLocation.renderEmployeeTableData();
+parisLocation.renderEmployeeTableData();
+limaLocation.renderEmployeeTableData();
 
+let hourlyEmployeeTotals = sumEmployeeHourly();
+renderEmployeeTotals();
+
+console.log(hourlyEmployeeTotals);
