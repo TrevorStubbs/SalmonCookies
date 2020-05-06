@@ -3,6 +3,13 @@ body{
   color: rgb(39, 20, 70);
   /* serif */
   font-family: 'Volkhov', serif;
+  font-size: 18px;
+}
+
+h1{
+  font-size: 100px;
+  text-align: center;
+  z-index: 2;
 }
 
 section{
@@ -15,10 +22,12 @@ ul{
   list-style-position: inside;
 }
 
+
+
 #logo{
   position: absolute;
   margin-left: 30%;
-  z-index: 1;
+  z-index: -1;
 }
 
 .highlight{
@@ -34,3 +43,6 @@ ul{
   color: rgb(19, 54, 6);
 }
 
+.main-img{
+  height: 300px;
+}
