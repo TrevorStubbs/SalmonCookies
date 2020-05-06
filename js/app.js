@@ -188,31 +188,35 @@ function renderEmployeeTotals(){
 }
 
 // Instantiating the classes
-let seattleLocation = new CookieStoreLocation('Seattle', 23, 65, 6.3);
-let tokyoLocation = new CookieStoreLocation('Tokyo', 3, 24, 1.2);
-let dubaiLocation = new CookieStoreLocation('Dubai', 11, 38, 3.7);
-let parisLocation = new CookieStoreLocation('Paris', 20, 38, 2.3);
-let limaLocation = new CookieStoreLocation('Lima', 2, 16, 4.6);
+// I am ignoring eslint since I am not calling on these objects directly.
+let seattleLocation = new CookieStoreLocation('Seattle', 23, 65, 6.3); //eslint-disable-line
+let tokyoLocation = new CookieStoreLocation('Tokyo', 3, 24, 1.2); //eslint-disable-line
+let dubaiLocation = new CookieStoreLocation('Dubai', 11, 38, 3.7); //eslint-disable-line
+let parisLocation = new CookieStoreLocation('Paris', 20, 38, 2.3); //eslint-disable-line
+let limaLocation = new CookieStoreLocation('Lima', 2, 16, 4.6); //eslint-disable-line
 
 // Render All the table rows
 renderTableHead('cookie-table-head');
-seattleLocation.renderSalesTableData();
-tokyoLocation.renderSalesTableData();
-dubaiLocation.renderSalesTableData();
-parisLocation.renderSalesTableData();
-limaLocation.renderSalesTableData();
-
+function renderAllSalesTableData(){
+  for(let i = 0; i < everyLocation.length; i++){
+    everyLocation[i].renderSalesTableData();
+  }
+}
+renderAllSalesTableData();
 
 // Have to call sumSalesHourly after the classes have been rendered
 let hourlyTotals = sumSalesHourly();
 renderTotals();
 
-seattleLocation.renderEmployeeTableData();
-tokyoLocation.renderEmployeeTableData();
-dubaiLocation.renderEmployeeTableData();
-parisLocation.renderEmployeeTableData();
-limaLocation.renderEmployeeTableData();
+//Render Employee Table
+function renderAllEmployeeTableData(){
+  for(let i = 0; i < everyLocation.length; i++){
+    everyLocation[i].renderEmployeeTableData();
+  }
+}
+renderAllEmployeeTableData();
 
+// Rendering the Employee Table
 renderTableHead('employee-table-head');
 let hourlyEmployeeTotals = sumEmployeeHourly();
 renderEmployeeTotals();
