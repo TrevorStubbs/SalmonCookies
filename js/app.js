@@ -4,6 +4,7 @@
 var everyLocation = [];
 // WARNING: this is not connected to the hourArrayGenerator. If the hours change I need to change this.
 let hourlyCorrectionScale = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
+// Generate the open hours
 let openHours = hoursArrayGenerator(6,8);
 
 //Generate the hours array
@@ -89,13 +90,6 @@ CookieStoreLocation.prototype.employeeCalculator = function(){
       this.employeeArray.push(totalPerHour);
     }
   }
-  // Calculate total
-  // let sumTotal = 0;
-  // for(let i = 0; i < this.employeeArray.length; i++){
-  //   sumTotal += this.employeeArray[i];
-  // }
-  // this.employeeArray.push(sumTotal);
-  console.log(this.employeeArray);
 };
 
 //Render Employee Numbers
@@ -115,21 +109,24 @@ CookieStoreLocation.prototype.renderEmployeeTableData = function(){
 //Render Table Head
 function renderTableHead(tagId){
   let parentElement = document.getElementById(tagId);
+  let parentRow = document.createElement('tr'); //this test
   let tableHead = document.createElement('th');
   tableHead.textContent = '';
-  parentElement.appendChild(tableHead);
+  parentRow.appendChild(tableHead);
   for(let i = 0; i < openHours.length; i++){
     tableHead = document.createElement('th');
     tableHead.textContent = openHours[i];
-    parentElement.appendChild(tableHead);
+    parentRow.appendChild(tableHead);
   }
   if(tagId === 'employee-table-head'){
+    parentElement.appendChild(parentRow);
     return;
   }else{
     tableHead = document.createElement('th');
     tableHead.textContent = 'Daily Location Total';
-    parentElement.appendChild(tableHead);
+    parentRow.appendChild(tableHead);
   }
+  parentElement.appendChild(parentRow);
 }
 
 // Hourly total - tied to location constructor
@@ -163,7 +160,6 @@ function renderTotals(){
   }
 }
 
-
 // Build out Employee Table
 // Hourly total
 function sumEmployeeHourly(){
@@ -192,31 +188,35 @@ function renderEmployeeTotals(){
 }
 
 // Instantiating the classes
-let seattleLocation = new CookieStoreLocation('Seattle', 23, 65, 6.3);
-let tokyoLocation = new CookieStoreLocation('Tokyo', 3, 24, 1.2);
-let dubaiLocation = new CookieStoreLocation('Dubai', 11, 38, 3.7);
-let parisLocation = new CookieStoreLocation('Paris', 20, 38, 2.3);
-let limaLocation = new CookieStoreLocation('Lima', 2, 16, 4.6);
+// I am ignoring eslint since I am not calling on these objects directly.
+let seattleLocation = new CookieStoreLocation('Seattle', 23, 65, 6.3); //eslint-disable-line
+let tokyoLocation = new CookieStoreLocation('Tokyo', 3, 24, 1.2); //eslint-disable-line
+let dubaiLocation = new CookieStoreLocation('Dubai', 11, 38, 3.7); //eslint-disable-line
+let parisLocation = new CookieStoreLocation('Paris', 20, 38, 2.3); //eslint-disable-line
+let limaLocation = new CookieStoreLocation('Lima', 2, 16, 4.6); //eslint-disable-line
 
 // Render All the table rows
 renderTableHead('cookie-table-head');
-seattleLocation.renderSalesTableData();
-tokyoLocation.renderSalesTableData();
-dubaiLocation.renderSalesTableData();
-parisLocation.renderSalesTableData();
-limaLocation.renderSalesTableData();
-
+function renderAllSalesTableData(){
+  for(let i = 0; i < everyLocation.length; i++){
+    everyLocation[i].renderSalesTableData();
+  }
+}
+renderAllSalesTableData();
 
 // Have to call sumSalesHourly after the classes have been rendered
 let hourlyTotals = sumSalesHourly();
 renderTotals();
 
-seattleLocation.renderEmployeeTableData();
-tokyoLocation.renderEmployeeTableData();
-dubaiLocation.renderEmployeeTableData();
-parisLocation.renderEmployeeTableData();
-limaLocation.renderEmployeeTableData();
+//Render Employee Table
+function renderAllEmployeeTableData(){
+  for(let i = 0; i < everyLocation.length; i++){
+    everyLocation[i].renderEmployeeTableData();
+  }
+}
+renderAllEmployeeTableData();
 
+// Rendering the Employee Table
 renderTableHead('employee-table-head');
 let hourlyEmployeeTotals = sumEmployeeHourly();
 renderEmployeeTotals();
