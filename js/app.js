@@ -221,4 +221,4 @@ renderTableHead('employee-table-head');
 let hourlyEmployeeTotals = sumEmployeeHourly();
 renderEmployeeTotals();
 
-// console.log(everyLocation);
+console.log(everyLocation);
