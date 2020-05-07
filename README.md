@@ -71,3 +71,18 @@ Display the lists on sales.html.--
 1. make a style guide 
 1. create a second table that will help Pat manage staffing. Using the basic rubric that a single employee can serve **20 customers per hour** should have a min of 2 employees at a time. calc how many emp needed at each location per hour
 1. There are more customers at 8, 11, 15. least customers at 13, 18. Apply a control curve to the projected sales number to reflect those daily ebbs and flows.
+
+# Day 3
+1. add 7 images to the page-
+1. locations with addresses
+1. hours open
+1. contact information
+1. Anything else
+1. a link to the sales page
+## Stretch Goals
+1. Allow the users to choose multiple display and color profiles. (dark/light versions)
+1. make a style guide
+1. Make 2 additional pages
+    - Mock `store.html` so users can order cookies and swag. 
+        - include forms for name, address, payment info, products to order, quantities, special instructions
+    - a 'private' page (`order-processing.html`) that shows the list of pending orders and the order details.
