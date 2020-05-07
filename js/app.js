@@ -64,18 +64,20 @@ CookieStoreLocation.prototype.averageCookiesPurchasedPerHour = function(){
 CookieStoreLocation.prototype.renderSalesTableData = function() {
   this.customersEachHour();
   this.averageCookiesPurchasedPerHour();
-  let parentElement = document.getElementById(this.name.toLowerCase());
+  let parentElement = document.getElementById('cookie-table-body');
+  let parentRow = document.createElement('tr');
   let tableHead = document.createElement('th');
   tableHead.textContent = this.name;
-  parentElement.appendChild(tableHead);
+  parentRow.appendChild(tableHead);
   for(let i = 0; i < this.cookieArray.length; i++){
     tableHead = document.createElement('td');
     tableHead.textContent = this.cookieArray[i];
-    parentElement.appendChild(tableHead);
+    parentRow.appendChild(tableHead);
   }
   tableHead = document.createElement('td');
   tableHead.textContent = this.totalCookiesPerDay;
-  parentElement.appendChild(tableHead);
+  parentRow.appendChild(tableHead);
+  parentElement.appendChild(parentRow);
 };
 
 // Calculate how many Employees we need per hour
@@ -95,15 +97,17 @@ CookieStoreLocation.prototype.employeeCalculator = function(){
 //Render Employee Numbers
 CookieStoreLocation.prototype.renderEmployeeTableData = function(){
   this.employeeCalculator();
-  let parentElement = document.getElementById(`${this.name.toLowerCase()}-employee`);
-  let tableHead = document.createElement('td');
+  let parentElement = document.getElementById('employee-table-body');
+  let parentRow = document.createElement('tr');
+  let tableHead = document.createElement('th');
   tableHead.textContent = this.name;
-  parentElement.appendChild(tableHead);
+  parentRow.appendChild(tableHead);
   for(let i = 0; i < this.employeeArray.length; i++){
     tableHead = document.createElement('td');
     tableHead.textContent = this.employeeArray[i];
-    parentElement.appendChild(tableHead);
+    parentRow.appendChild(tableHead);
   }
+  parentElement.appendChild(parentRow);
 };
 
 //Render Table Head
@@ -194,9 +198,6 @@ let tokyoLocation = new CookieStoreLocation('Tokyo', 3, 24, 1.2); //eslint-disab
 let dubaiLocation = new CookieStoreLocation('Dubai', 11, 38, 3.7); //eslint-disable-line
 let parisLocation = new CookieStoreLocation('Paris', 20, 38, 2.3); //eslint-disable-line
 let limaLocation = new CookieStoreLocation('Lima', 2, 16, 4.6); //eslint-disable-line
-let portlandLocation = new CookieStoreLocation('Portland', 2, 16, 4.6);
-
-console.log(everyLocation);
 
 // Render All the table rows
 renderTableHead('cookie-table-head');
