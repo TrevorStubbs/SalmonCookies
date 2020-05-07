@@ -86,3 +86,15 @@ Display the lists on sales.html.--
     - Mock `store.html` so users can order cookies and swag. 
         - include forms for name, address, payment info, products to order, quantities, special instructions
     - a 'private' page (`order-processing.html`) that shows the list of pending orders and the order details.
+
+# Day 4
+1. Use a `<fieldset>` to create an HTML form
+1. Upon submission of the form create an event handler that creates a new instance of a store location that appends to the table upon form submission.
+1. Use the constructor function to determine the input fields
+1. Find a way to make the code more DRY
+1. use HTML Validation
+1. Make sure code follow single responsibility rule. 
+Stretch Goals:
+- Give your input form functionality to update the data for a location that is already in the table.
+    - use `if` statement to test whether the inputted location already exists.
+    - the new input numbers need to be run through the calc methods as with the original create of the instances. 
