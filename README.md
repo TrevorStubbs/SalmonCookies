@@ -2,7 +2,7 @@
 
 ## Overall requirements:
 - Calculate the number of cookies each location must make every day.
-    - HOws of operation 0600-2000 (14 hours a day)
+    - Hours of operation 0600-2000 (14 hours a day)
 
 - Given info:
     - Minimum number of customers per hour
