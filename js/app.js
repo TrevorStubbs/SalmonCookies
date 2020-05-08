@@ -8,7 +8,6 @@ let hourlyCorrectionScale = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 
 let openHours = hoursArrayGenerator(6,8);
 let hourlyTotals = [];
 let hourlyEmployeeTotals = [];
-
 let parentElement;
 
 //Generate the hours array
@@ -138,7 +137,7 @@ function renderTableHead(tagId){
     tableHead.textContent = openHours[i];
     parentRow.appendChild(tableHead);
   }
-  if(tagId === 'sales'){
+  if(tagId === 'employees'){
     parentTHead.appendChild(parentRow);
     return;
   }else{
@@ -228,17 +227,8 @@ function handleLocationForm(event){
   let cookiesPerCustomer = Number(event.target.cookiesPerCustomer.value);
   new CookieStoreLocation(name, minCustomers, maxCustomers, cookiesPerCustomer);
   console.log(everyLocation);
-  renderAllSalesTableData();
-  renderTotals();
-  sumSalesHourly();
-  renderAllEmployeeTableData();
-  sumEmployeeHourly();
-  renderEmployeeTotals();
-  renderTableHead('sales');
-  renderTableHead('employees');
+  pageRenderer();
 }
-
-
 
 ////////////////////////////// Running Code /////////////////////////////
 // Instantiating the classes
@@ -249,32 +239,34 @@ let dubaiLocation = new CookieStoreLocation('Dubai', 11, 38, 3.7); //eslint-disa
 let parisLocation = new CookieStoreLocation('Paris', 20, 38, 2.3); //eslint-disable-line
 let limaLocation = new CookieStoreLocation('Lima', 2, 16, 4.6); //eslint-disable-line
 
-renderTableHead('sales');
-// Render All the table rows
-function renderAllSalesTableData(){
-  for(let i = 0; i < everyLocation.length; i++){
-    everyLocation[i].renderSalesTableData();
+
+// One function to render all.
+function pageRenderer(){
+  renderTableHead('sales');
+  // Render All the table rows
+  function renderAllSalesTableData(){
+    for(let i = 0; i < everyLocation.length; i++){
+      everyLocation[i].renderSalesTableData();
+    }
   }
-}
-renderAllSalesTableData();
-// Have to call sumSalesHourly after the classes have been rendered
-sumSalesHourly();
-console.log(hourlyTotals);
-renderTotals();
+  renderAllSalesTableData();
+  // Have to call sumSalesHourly after the classes have been rendered
+  sumSalesHourly();
+  renderTotals();
 
-renderTableHead('employees');
-//Render Employee Table
-function renderAllEmployeeTableData(){
-  for(let i = 0; i < everyLocation.length; i++){
-    everyLocation[i].renderEmployeeTableData();
+  //Render Employee Table
+  renderTableHead('employees');
+  function renderAllEmployeeTableData(){
+    for(let i = 0; i < everyLocation.length; i++){
+      everyLocation[i].renderEmployeeTableData();
+    }
   }
+  // Rendering the Employee Table
+  renderAllEmployeeTableData();
+  sumEmployeeHourly();
+  renderEmployeeTotals();
 }
-
-// Rendering the Employee Table
-renderAllEmployeeTableData();
-sumEmployeeHourly();
-renderEmployeeTotals();
-
+pageRenderer();
 
 //Form Event Listener
 formElement.addEventListener('submit', handleLocationForm);
