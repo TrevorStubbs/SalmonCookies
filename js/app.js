@@ -8,7 +8,7 @@ let hourlyCorrectionScale = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 
 let openHours = hoursArrayGenerator(6,8);
 let hourlyTotals = [];
 let hourlyEmployeeTotals = [];
-let parentElement;
+let parentElement = document.getElementById('table');
 
 //Generate the hours array
 function hoursArrayGenerator(open, close){
@@ -142,6 +142,7 @@ function renderTableHead(tagId){
     return;
   }else{
     tableHead = document.createElement('th');
+    tableHead.setAttribute('id', 'totals-cell');
     tableHead.textContent = 'Daily Location Total';
     parentRow.appendChild(tableHead);
   }
@@ -172,7 +173,7 @@ function renderTotals(){
   parentTFoot.setAttribute('id', 'cookie-table-foot');
   parentElement.appendChild(parentTFoot);
   let parentRow = document.createElement('tr');
-  let tableFoot = document.createElement('td');
+  let tableFoot = document.createElement('th');
   tableFoot.textContent = 'Totals';
   parentRow.appendChild(tableFoot);
   for(let i = 0; i < hourlyTotals.length; i++){
@@ -202,7 +203,7 @@ function renderEmployeeTotals(){
   parentTFoot.setAttribute('id', 'employee-table-foot');
   parentElement.appendChild(parentTFoot);
   let parentRow = document.createElement('tr');
-  let tableFoot = document.createElement('td');
+  let tableFoot = document.createElement('th');
   tableFoot.textContent = 'Totals ';
   parentRow.appendChild(tableFoot);
   for(let i = 0; i < hourlyTotals.length; i++){
@@ -270,3 +271,4 @@ pageRenderer();
 
 //Form Event Listener
 formElement.addEventListener('submit', handleLocationForm);
+

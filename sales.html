@@ -12,6 +12,13 @@
   <header>    
     <figure><img id="logo" src="images/salmon.png" alt="salmon" title="salmon" /></figure>
     <h1 class="highlight">Salmon Cookies</h1>
+    <nav id="top-nav">
+      <ul>
+        <li>
+          <a href="index.html">Go Home</a>
+        </li>
+      </ul>
+    </nav>
   </header>
   <main>
     <section class="data"><h2>Sales Data:</h2>
@@ -34,29 +41,38 @@
       </tfoot>
     </table>
     <form id="add-location">
-      <fieldset> Add New Location
+      <fieldset id="outer-field"> Add New Location
         <label>Name:
           <input type="text" name="locationName" />
         </label>
-        <fieldset>Customer Information:
+        <fieldset id="inner-field">Customer Information:
+          <div>
           <label>Minimum Customers:
             <input type="text" name="minimum" />
           </label>
+          </div>
+          <div>
           <label>Maximum Customers:
             <input type="text" name="maximum" />
           </label>
+        </div>
+        <div>
           <label>Cookies Purchased Per Customer:
             <input type="text" name="cookiesPerCustomer" />
           </label>
+          </div>
         </fieldset>
         <input type="submit" name="generate" value="submit" />
       </fieldset>
     </form>
   </section>
-    <a href="index.html">Go Home</a>
   </main>
   <footer>
+    <section>
+      <img src="images/chinook.jpg" alt="chinook" title="chinook">
+    </section>
+    <nav id="legal">&copy; FuckPat | Facebook | Instagram</nav>
     <script src="js/app.js"></script>
   </footer>
-</body>
+  </body>
 </html>
